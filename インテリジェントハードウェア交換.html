@@ -9,46 +9,49 @@
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             background-color: #f5f7f9;
             margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            align-items: center; /* 全体を中央寄せ */
         }
 
-        /* ヘッダー */
-        header {
+        /* コンテナ：ここが幅の決め手です */
+        .container {
+            width: 100%;
+            max-width: 1200px; /* ご提示のサイトに近い幅に設定 */
             background-color: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        header {
+            padding: 20px 20px 0 20px;
             border-bottom: 1px solid #d1d9e0;
-            padding: 10px 20px 0 20px;
-            flex-shrink: 0;
         }
 
         h1 {
-            font-size: 16px;
+            font-size: 22px;
             color: #1a2b3c;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
         }
 
-        /* タブボタン */
         .tab-container {
             display: flex;
-            gap: 5px;
+            gap: 10px;
         }
 
         .tab-button {
-            padding: 10px 25px;
+            padding: 10px 20px;
             border: none;
             background: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             color: #5c6c7b;
             border-bottom: 3px solid transparent;
-            transition: all 0.2s ease;
-            outline: none;
+            transition: all 0.2s;
         }
 
         .tab-button:hover {
-            background-color: #f0f2f5;
             color: #000;
         }
 
@@ -58,61 +61,56 @@
             font-weight: bold;
         }
 
-        /* 画像表示エリア */
         .content {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            background-color: #f5f7f9;
         }
 
         .dashboard-img {
-            max-width: 100%;
-            height: auto;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: none; /* 初期は非表示 */
+            width: 100%;      /* コンテナの幅に合わせる */
+            height: auto;     /* 比率を維持 */
+            display: none;
         }
 
         .dashboard-img.active {
-            display: block; /* activeクラスがついたものだけ表示 */
+            display: block;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>「インテリジェントハードウェア交換」ダッシュボードの画面イメージ</h1>
-    <div class="tab-container">
-        <button class="tab-button active" onclick="showTab(0)">概要</button>
-        <button class="tab-button" onclick="showTab(1)">DEXスコアの詳細</button>
-        <button class="tab-button" onclick="showTab(2)">利用状況の詳細</button>
-        <button class="tab-button" onclick="showTab(3)">推奨事項</button>
-    </div>
-</header>
+<div class="container">
+    <header>
+        <h1>インテリジェントハードウェア交換</h1>
+        <div class="tab-container">
+            <button class="tab-button active" onclick="showTab(0)">概要</button>
+            <button class="tab-button" onclick="showTab(1)">DEXスコアの詳細</button>
+            <button class="tab-button" onclick="showTab(2)">利用状況の詳細</button>
+            <button class="tab-button" onclick="showTab(3)">推奨事項</button>
+        </div>
+    </header>
 
-<div class="content">
-    <img src="I_HW_R_1_概要.jpg" alt="概要" class="dashboard-img active">
-    <img src="I_HW_R_2_DEX.jpg" alt="DEXスコアの詳細" class="dashboard-img">
-    <img src="I_HW_R_3_利用状況.jpg" alt="利用状況の詳細" class="dashboard-img">
-    <img src="I_HW_R_4_推奨.jpg" alt="推奨事項" class="dashboard-img">
+    <div class="content">
+        <img src="I_HW_R_1_概要.png" alt="概要" class="dashboard-img active">
+        <img src="I_HW_R_2_DEX.jpg" alt="DEXスコアの詳細" class="dashboard-img">
+        <img src="I_HW_R_3_利用状況.png" alt="利用状況の詳細" class="dashboard-img">
+        <img src="I_HW_R_4_推奨.jpg" alt="推奨事項" class="dashboard-img">
+    </div>
 </div>
 
 <script>
     function showTab(index) {
-        // ボタンの切り替え
         const buttons = document.querySelectorAll('.tab-button');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        buttons[index].classList.add('active');
-
-        // 画像の切り替え
         const images = document.querySelectorAll('.dashboard-img');
+        
+        buttons.forEach(btn => btn.classList.remove('active'));
         images.forEach(img => img.classList.remove('active'));
+
+        buttons[index].classList.add('active');
         images[index].classList.add('active');
         
-        // 切り替え時にページ最上部へスクロール
-        document.querySelector('.content').scrollTop = 0;
+        window.scrollTo(0, 0);
     }
 </script>
 
